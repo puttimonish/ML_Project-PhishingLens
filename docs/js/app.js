@@ -25,6 +25,7 @@ const featureTable = document.getElementById("featureTable");
 const HISTORY_KEY = "phishinglens-scan-history-v1";
 const SETTINGS_KEY = "phishinglens-preferences-v1";
 const MAX_HISTORY_ITEMS = 20;
+const API_BASE_URL = "https://arg-funky-mrna-voltage.trycloudflare.com";
 let currentAnalysis = null;
 
 function showError(message) {
@@ -200,7 +201,7 @@ async function analyzeURL() {
 
     setLoading(true);
     try {
-        const response = await fetch("/api/v1/analyze", {
+        const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url })
@@ -341,7 +342,7 @@ function applyTheme(theme) {
     document.body.dataset.theme = resolved;
     const icon = document.getElementById("themeIcon");
     const toggle = document.getElementById("themeToggle");
-    if (icon) icon.textContent = resolved === "dark" ? "☀" : "☾";
+    if (icon) icon.textContent = resolved === "dark" ? "\u2600" : "\u263E";
     if (toggle) {
         toggle.setAttribute("aria-label", resolved === "dark" ? "Switch to light theme" : "Switch to dark theme");
         toggle.title = resolved === "dark" ? "Switch to light theme" : "Switch to dark theme";
@@ -526,7 +527,7 @@ function extractUrls(text) {
     return uniqueUrls(matches.map(x => x.replace(/[),.;!?\]}]+$/g, "")));
 }
 async function requestAnalysis(url) {
-    const response = await fetch("/api/v1/analyze", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
+    const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
     let data = {}; try { data = await response.json(); } catch {}
     if (!response.ok) throw new Error(data.detail || `Analysis failed (${response.status})`);
     return data;
@@ -604,7 +605,7 @@ const qrImageInput=document.getElementById("qrImageInput"), readQrButton=documen
 async function decodeQrWithBackend(file) {
     const formData = new FormData();
     formData.append("image", file, file.name || "qr-image");
-    const response = await fetch("/api/v1/qr-decode", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/qr-decode`, {
         method: "POST",
         body: formData
     });
@@ -659,7 +660,7 @@ if (readQrButton) readQrButton.addEventListener("click",async()=>{
 });
 if(document.getElementById("useQrUrlButton")) document.getElementById("useQrUrlButton").addEventListener("click",()=>{const value=normalizeWebUrl(document.getElementById("qrExtractedUrl").value);if(!value)return;urlInput.value=value;document.getElementById("analyze").scrollIntoView({behavior:"smooth"});urlInput.focus();});
 async function inspectDomain(url) {
-    const response=await fetch("/api/v1/intelligence",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
+    const response=await fetch(`${API_BASE_URL}/api/v1/intelligence`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
     let data={};try{data=await response.json();}catch{}
     if(!response.ok)throw new Error(data.detail||`Live intelligence endpoint unavailable (${response.status}).`);return data;
 }
@@ -692,7 +693,7 @@ if (breachCheckButton) breachCheckButton.addEventListener("click", async () => {
     if (!consent) { status.textContent = "Please tick the consent checkbox before sending the email for a lookup."; return; }
     breachCheckButton.disabled = true; status.textContent = "Checking known breach records…";
     try {
-        const response = await fetch("/api/v1/breach-check", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
+        const response = await fetch(`${API_BASE_URL}/api/v1/breach-check`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
         let data={}; try { data=await response.json(); } catch {}
         if (!response.ok) throw new Error(data.detail || `Breach lookup unavailable (${response.status}).`);
         addToolRow(results,"Result",data.status === "found" ? `${data.breach_count} known breach record(s)` : "No matching records returned");
