@@ -1,0 +1,24 @@
+
+PHISHLENS DATASET REPORT
+========================
+
+Total URLs:
+339,723
+
+Phishing URLs:
+169,723 (49.96%)
+
+Legitimate URLs:
+170,000 (50.04%)
+
+Missing URLs:
+0
+
+Missing labels:
+0
+
+Unique URLs:
+339,723
+
+Labels:
+['phishing', 'legitimate']

@@ -1,0 +1,1078 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+
+        name="viewport"
+
+        content="width=device-width, initial-scale=1.0"
+
+    >
+
+    <title>
+
+        PhishingLens — AI URL Security
+
+    </title>
+
+    <meta
+
+        name="description"
+
+        content="AI-powered URL phishing detection and contextual security analysis."
+
+    >
+
+    <link
+
+        rel="stylesheet"
+
+        href="/app/css/style.css" id="appStylesheet"
+
+    >
+
+<script>
+        if (window.location.protocol === "file:") {
+            document.getElementById("appStylesheet").href = "css/style.css";
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- =====================================================
+
+         NAVIGATION
+
+    ====================================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a
+
+                href="/app/"
+
+                class="brand"
+
+            >
+
+                <span class="brand-icon">
+
+                    🛡️
+
+                </span>
+
+                <span>
+
+                    Phishing<span>Lens</span>
+
+                </span>
+
+            </a>
+
+            <nav class="nav-links">
+
+                <a
+
+                    href="#home"
+
+                    class="active"
+
+                >
+
+                    Home
+
+                </a>
+
+                <a href="#analyze">
+
+                    Analyze
+
+                </a>
+
+                <a href="#intelligence">
+
+                    Intelligence
+
+                </a>
+<a href="#about">
+
+                    About
+
+                </a>
+
+            </nav>
+
+            <div class="nav-actions">
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch theme"><span id="themeIcon" aria-hidden="true">☀</span></button>
+                <button id="toolsToggle" class="tools-toggle" type="button" aria-expanded="false" aria-controls="toolsMenu">Tools</button>
+                <a href="#analyze" class="nav-button">Analyze URL</a>
+            </div>
+
+        </div>
+
+    </header>
+
+    <div id="toolsMenu" class="tools-menu hidden" aria-label="PhishingLens tools">
+        <button class="tool-menu-item" id="openWorkspace" type="button"><strong>Open Workspace</strong><span>Use focused pages for each security tool</span></button>
+        <a class="tool-menu-item" href="#analyze"><strong>URL Scanner</strong><span>Analyze a link with the ML model</span></a>
+        <a class="tool-menu-item" href="#scanHistory"><strong>Scan History</strong><span>Review scans saved in this browser</span></a>
+        <a class="tool-menu-item" href="#securityTools"><strong>Security Toolkit</strong><span>Bulk scan, compare, extract links and QR</span></a>
+        <a class="tool-menu-item" href="#watchlist"><strong>Domain Watchlist</strong><span>Save domains to revisit</span></a>
+        <a class="tool-menu-item" href="#intelligence"><strong>Threat Intelligence</strong><span>Explore the analysis layers</span></a>
+        <button class="tool-menu-item" id="openSettings" type="button"><strong>Preferences</strong><span>Theme and interface settings</span></button>
+    </div>
+
+    <!-- =====================================================
+
+         HERO
+
+    ====================================================== -->
+
+    <main>
+
+        <section
+
+            id="home"
+
+            class="hero"
+
+        >
+
+            <div class="hero-glow glow-one"></div>
+
+            <div class="hero-glow glow-two"></div>
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    <span class="status-dot"></span>
+
+                    AI-POWERED URL SECURITY
+
+                </div>
+
+                <h1>
+
+                    Know before
+
+                    <span>you click.</span>
+
+                </h1>
+
+                <p class="hero-description">
+
+                    PhishingLens analyzes URLs using machine
+
+                    learning, domain intelligence and contextual
+
+                    security analysis to identify potentially
+
+                    dangerous links.
+
+                </p>
+
+                <div class="hero-actions">
+
+                    <a
+
+                        href="#analyze"
+
+                        class="primary-button"
+
+                    >
+
+                        Analyze a URL
+
+                        <span>→</span>
+
+                    </a>
+
+                    <a
+
+                        href="#intelligence"
+
+                        class="secondary-button"
+
+                    >
+
+                        Explore intelligence
+
+                    </a>
+
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+
+                        <strong>
+
+                            80+
+
+                        </strong>
+
+                        <span>
+
+                            URL features
+
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+
+                            ML
+
+                        </strong>
+
+                        <span>
+
+                            Risk prediction
+
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+
+                            LIVE
+
+                        </strong>
+
+                        <span>
+
+                            Domain signals
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             ANALYZER
+
+        ================================================== -->
+
+        <section
+
+            id="analyze"
+
+            class="section analyzer-section"
+
+        >
+
+            <div class="section-heading">
+
+                <div class="section-label">
+
+                    URL ANALYZER
+
+                </div>
+
+                <h2>
+
+                    Analyze any URL.
+
+                </h2>
+
+                <p>
+
+                    Enter a URL below and let PhishingLens
+
+                    inspect its structure, domain and
+
+                    security characteristics.
+
+                </p>
+
+            </div>
+
+            <div class="analyzer-card">
+
+                <div class="input-header">
+
+                    <span>
+
+                        URL to analyze
+
+                    </span>
+
+                    <span class="input-hint">
+
+                        HTTPS recommended
+
+                    </span>
+
+                </div>
+
+                <div class="url-input-wrapper">
+
+                    <span class="url-icon">
+
+                        🔗
+
+                    </span>
+
+                    <input
+                        id="urlInput"
+                        type="url"
+                        placeholder="Paste a URL to check, e.g. https://example.com/login"
+                        autocomplete="url"
+                        inputmode="url"
+                        aria-label="URL to analyze"
+                    >
+                    <button id="pasteUrlButton" class="input-utility-button" type="button" title="Paste from clipboard" aria-label="Paste URL">Paste</button>
+                    <button id="clearUrlButton" class="input-utility-button clear-url-button" type="button" title="Clear URL" aria-label="Clear URL">Clear</button>
+                    <button
+
+                        id="analyzeButton"
+
+                        class="analyze-button"
+
+                    >
+
+                        <span id="buttonText">
+
+                            Analyze URL
+
+                        </span>
+
+                        <span
+
+                            id="buttonSpinner"
+
+                            class="spinner hidden"
+
+                        ></span>
+
+                    </button>
+
+                </div>
+
+                <div class="quick-examples" aria-label="Try an example URL">
+                    <span>Try an example:</span>
+                    <button type="button" class="example-url" data-example-url="https://www.wikipedia.org/">Wikipedia</button>
+                    <button type="button" class="example-url" data-example-url="https://github.com/">GitHub</button>
+                    <button type="button" class="example-url" data-example-url="http://secure-account-verify.example.com/login">Suspicious-looking URL</button>
+                </div>
+
+                <div
+
+                    id="errorMessage"
+
+                    class="error-message hidden"
+
+                ></div>
+
+            </div>
+
+            <!-- RESULT -->
+
+            <div
+
+                id="resultSection"
+
+                class="result-section hidden"
+
+            >
+
+                <div class="result-url-card">
+
+                    <div class="result-url-label">
+
+                        ANALYZED URL
+
+                    </div>
+
+                    <div class="result-url-row">
+                        <div id="resultUrl" class="result-url"></div>
+                        <button id="copyResultUrlButton" class="subtle-button copy-result-button" type="button">Copy URL</button>
+                    </div>
+
+                </div>
+
+                <div
+
+                    id="verdictCard"
+
+                    class="verdict-card"
+
+                >
+
+                    <div class="verdict-icon">
+
+                        🛡️
+
+                    </div>
+
+                    <div>
+
+                        <div
+
+                            id="riskLevel"
+
+                            class="risk-level"
+
+                        >
+
+                            SUSPICIOUS
+
+                        </div>
+
+                        <div class="risk-caption">
+
+                            Contextual security assessment
+
+                        </div>
+
+                    </div>
+
+                    <div class="risk-score">
+
+                        <strong id="riskScore">
+
+                            0
+
+                        </strong>
+
+                        <span>
+
+                            /100
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- ML METRICS -->
+
+                <div class="metrics-grid">
+
+                    <div class="metric-card">
+
+                        <span>
+
+                            ML phishing probability
+
+                        </span>
+
+                        <strong id="phishingProbability">
+
+                            0%
+
+                        </strong>
+
+                        <div class="metric-bar">
+
+                            <div
+
+                                id="phishingBar"
+
+                                class="metric-bar-fill"
+
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="metric-card">
+
+                        <span>
+
+                            ML legitimate probability
+
+                        </span>
+
+                        <strong id="legitimateProbability">
+
+                            0%
+
+                        </strong>
+
+                        <div class="metric-bar">
+
+                            <div
+
+                                id="legitimateBar"
+
+                                class="metric-bar-fill legitimate"
+
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="metric-card">
+
+                        <span>
+
+                            Machine-learning score
+
+                        </span>
+
+                        <strong id="mlScore">
+
+                            0
+
+                        </strong>
+
+                        <small>
+
+                            /100
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- EXPLANATIONS -->
+
+                <div class="analysis-grid">
+
+                    <div class="panel">
+
+                        <div class="panel-heading">
+
+                            <span class="panel-icon">
+
+                                🔍
+
+                            </span>
+
+                            <div>
+
+                                <h3>
+
+                                    Why this result?
+
+                                </h3>
+
+                                <p>
+
+                                    Security reasoning
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div
+
+                            id="explanations"
+
+                            class="explanations"
+
+                        ></div>
+
+                    </div>
+
+                    <div class="panel">
+
+                        <div class="panel-heading">
+
+                            <span class="panel-icon">
+
+                                🌐
+
+                            </span>
+
+                            <div>
+
+                                <h3>
+
+                                    Domain intelligence
+
+                                </h3>
+
+                                <p>
+
+                                    Structural analysis
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div
+
+                            id="domainIndicators"
+
+                            class="indicator-list"
+
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <!-- SECURITY INDICATORS -->
+
+                <div class="panel full-panel">
+
+                    <div class="panel-heading">
+
+                        <span class="panel-icon">
+
+                            🔐
+
+                        </span>
+
+                        <div>
+
+                            <h3>
+
+                                Security indicators
+
+                            </h3>
+
+                            <p>
+
+                                Signals detected by PhishingLens
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div
+
+                        id="securityIndicators"
+
+                        class="security-grid"
+
+                    ></div>
+
+                </div>
+
+                <!-- RAW FEATURES -->
+
+                <details class="features-panel">
+
+                    <summary>
+
+                        <span>
+
+                            🧠 View extracted ML features
+
+                        </span>
+
+                        <span>
+
+                            +
+
+                        </span>
+
+                    </summary>
+
+                    <div
+
+                        id="featureTable"
+
+                        class="feature-table"
+
+                    ></div>
+
+                </details>
+
+            </div>
+
+        </section>
+
+        <!-- =================================================
+
+             INTELLIGENCE
+
+        ================================================== -->
+
+        <section id="scanHistory" class="section history-section">
+            <div class="section-heading">
+                <div class="section-label">YOUR WORKSPACE</div>
+                <h2>Recent scans.</h2>
+                <p>Your recent URL analyses are saved locally in this browser. They are not uploaded as a history log.</p>
+            </div>
+            <div class="history-toolbar"><span id="historyCount" class="history-count">0 saved scans</span><button id="clearHistoryButton" class="subtle-button" type="button">Clear history</button></div>
+            <div id="historyList" class="history-list"><div class="history-empty">Your analyzed URLs will appear here after your first scan.</div></div>
+        </section>
+
+
+        <!-- EXTENDED SECURITY TOOLKIT -->
+        <section id="securityTools" class="section security-tools-section">
+            <div class="section-heading">
+                <div class="section-label">SECURITY WORKSPACE</div>
+                <h2>More ways to investigate a link.</h2>
+                <p>Use the existing PhishingLens model alongside domain intelligence, batch analysis and link extraction. Live checks are clearly marked when unavailable.</p>
+            </div>
+            <div class="tool-grid">
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">▦</span><div><h3>Bulk URL scanner</h3><p>Analyze a list of URLs sequentially.</p></div></div>
+                    <textarea id="bulkUrls" rows="5" placeholder="https://example.com&#10;https://another-example.com"></textarea>
+                    <div class="tool-actions"><button id="bulkScanButton" class="primary-button" type="button">Scan URLs</button><button id="downloadBulkCsv" class="secondary-button" type="button" disabled>Export CSV</button></div>
+                    <p id="bulkStatus" class="tool-status" role="status">Paste one URL per line (maximum 50).</p>
+                    <div id="bulkResults" class="tool-results"></div>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">⇄</span><div><h3>Compare two URLs</h3><p>Compare model probabilities and risk scores.</p></div></div>
+                    <label for="compareUrlA">First URL</label><input id="compareUrlA" type="url" placeholder="https://first.example">
+                    <label for="compareUrlB">Second URL</label><input id="compareUrlB" type="url" placeholder="https://second.example">
+                    <button id="compareButton" class="primary-button" type="button">Compare URLs</button>
+                    <div id="compareResults" class="tool-results" aria-live="polite"></div>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">✉</span><div><h3>Email and text link extractor</h3><p>Paste email text to extract links before scanning.</p></div></div>
+                    <textarea id="emailText" rows="5" placeholder="Paste email text here. Do not include passwords or private messages you do not want processed."></textarea>
+                    <div class="tool-actions"><button id="extractEmailLinksButton" class="primary-button" type="button">Extract links</button><button id="scanExtractedLinksButton" class="secondary-button" type="button" disabled>Scan extracted</button></div>
+                    <div id="emailLinksResults" class="tool-results"></div>
+                    <label for="linkFileInput">Or extract links from .txt, .csv, or .eml</label><input id="linkFileInput" type="file" accept=".txt,.csv,.eml,text/plain,text/csv,message/rfc822">
+                    <p id="fileExtractStatus" class="tool-status" role="status"></p>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">▣</span><div><h3>QR URL extractor</h3><p>Read a QR code image and inspect its URL.</p></div></div>
+                    <input id="qrImageInput" type="file" accept="image/*">
+                    <button id="readQrButton" class="primary-button" type="button">Read QR image</button>
+                    <p id="qrStatus" class="tool-status" role="status">Uses browser QR decoding with a server-side fallback when needed.</p>
+                    <div class="tool-actions"><input id="qrExtractedUrl" type="url" placeholder="Extracted URL appears here" aria-label="Extracted QR URL"><button id="useQrUrlButton" class="secondary-button" type="button" disabled>Use in scanner</button></div>
+                </article>
+                <article class="tool-card tool-card-wide">
+                    <div class="tool-card-heading"><span class="tool-icon">◎</span><div><h3>Live domain intelligence</h3><p>Check public registration, DNS, TLS and redirect signals through the optional backend integration.</p></div></div>
+                    <div class="tool-actions"><input id="intelligenceUrl" type="url" placeholder="https://example.com" aria-label="URL for domain intelligence"><button id="domainIntelButton" class="primary-button" type="button">Inspect domain</button></div>
+                    <p id="domainIntelStatus" class="tool-status" role="status">Live checks require the included backend add-on to be integrated.</p>
+                    <div id="domainIntelResults" class="intel-result-grid"></div>
+                    <p class="tool-disclaimer">Domain and registration data can be incomplete or delayed. HTTPS does not prove a site is safe. A failed check means unknown, not malicious.</p>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">♙</span><div><h3>Optional email breach lookup</h3><p>Check a supplied email against known breach records through a configured provider.</p></div></div>
+                    <label for="breachEmail">Email address</label><input id="breachEmail" type="email" autocomplete="off" placeholder="you@example.com">
+                    <label class="consent-label"><input id="breachConsent" type="checkbox"> I consent to sending this email address to the configured breach-check provider for this lookup.</label>
+                    <button id="breachCheckButton" class="primary-button" type="button">Check known breaches</button>
+                    <p id="breachStatus" class="tool-status" role="status">Requires a server-side HIBP_API_KEY. Never enter passwords here.</p>
+                    <div id="breachResults" class="tool-results"></div>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-card-heading"><span class="tool-icon">▤</span><div><h3>Export current report</h3><p>Download the latest model analysis as JSON or a readable text report.</p></div></div>
+                    <p class="tool-status">Run a URL scan first. Reports include model output and explainability signals, not proof of a live reputation check.</p>
+                    <div class="tool-actions"><button id="downloadReportJson" class="primary-button" type="button" disabled>Download JSON</button><button id="downloadReportText" class="secondary-button" type="button" disabled>Download TXT</button><button id="printReportButton" class="secondary-button" type="button" disabled>Print / Save PDF</button></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="watchlist" class="section watchlist-section">
+            <div class="section-heading"><div class="section-label">LOCAL WORKSPACE</div><h2>Domain watchlist.</h2><p>Save URLs locally and manually recheck them when needed. The watchlist stays in this browser.</p></div>
+            <div class="watchlist-toolbar"><input id="watchlistUrl" type="url" placeholder="https://domain-to-watch.example" aria-label="URL to add to watchlist"><button id="addWatchlistButton" class="primary-button" type="button">Add to watchlist</button><button id="clearWatchlistButton" class="secondary-button" type="button">Clear list</button></div>
+            <div id="watchlistItems" class="watchlist-items"><p class="tool-status">No saved URLs yet.</p></div>
+        </section>
+
+        <section id="intelligence"
+
+            class="section intelligence-section"
+
+        >
+
+            <div class="section-heading">
+
+                <div class="section-label">
+
+                    THREAT INTELLIGENCE
+
+                </div>
+
+                <h2>
+
+                    More than a prediction.
+
+                </h2>
+
+                <p>
+
+                    PhishingLens combines multiple layers of
+
+                    analysis instead of relying on a single
+
+                    yes-or-no classification.
+
+                </p>
+
+            </div>
+
+            <div class="intelligence-grid">
+
+                <div class="intelligence-card">
+
+                    <div class="feature-icon">
+
+                        🧠
+
+                    </div>
+
+                    <h3>
+
+                        Machine Learning
+
+                    </h3>
+
+                    <p>
+
+                        A calibrated Random Forest analyzes
+
+                        URL characteristics and produces
+
+                        phishing and legitimate probabilities.
+
+                    </p>
+
+                    <span>
+
+                        80+ features
+
+                    </span>
+
+                </div>
+
+                <div class="intelligence-card">
+
+                    <div class="feature-icon">
+
+                        🌐
+
+                    </div>
+
+                    <h3>
+
+                        Domain Intelligence
+
+                    </h3>
+
+                    <p>
+
+                        Domain structure, subdomains, entropy,
+
+                        Punycode and domain characteristics
+
+                        are evaluated.
+
+                    </p>
+
+                    <span>
+
+                        Domain analysis
+
+                    </span>
+
+                </div>
+
+                <div class="intelligence-card">
+
+                    <div class="feature-icon">
+
+                        🎯
+
+                    </div>
+
+                    <h3>
+
+                        Brand Intelligence
+
+                    </h3>
+
+                    <p>
+
+                        Known brands are compared against
+
+                        their expected registered domains to
+
+                        detect impersonation patterns.
+
+                    </p>
+
+                    <span>
+
+                        Brand consistency
+
+                    </span>
+
+                </div>
+
+                <div class="intelligence-card">
+
+                    <div class="feature-icon">
+
+                        🛡️
+
+                    </div>
+
+                    <h3>
+
+                        Contextual Risk
+
+                    </h3>
+
+                    <p>
+
+                        ML probability is combined with
+
+                        security indicators to produce a
+
+                        final 0–100 contextual risk score.
+
+                    </p>
+
+                    <span>
+
+                        Risk engine
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+<!-- =================================================
+
+             ABOUT
+
+        ================================================== -->
+
+        <section
+
+            id="about"
+
+            class="section about-section"
+
+        >
+
+            <div class="about-content">
+
+                <div class="section-label">
+
+                    ABOUT PHISHINGLENS
+
+                </div>
+
+                <h2>
+
+                    Designed as a real ML security system.
+
+                </h2>
+
+                <p>
+
+                    PhishingLens combines machine learning,
+
+                    feature engineering, domain intelligence,
+
+                    contextual risk analysis and backend-based
+
+                    serving into a single security platform.
+
+                </p>
+
+                <p>
+
+                    The system is designed to make predictions
+
+                    understandable by showing probabilities,
+
+                    risk indicators and the reasoning behind
+
+                    the final assessment.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+
+         FOOTER
+
+    ====================================================== -->
+
+    <div id="settingsModal" class="settings-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <section class="settings-dialog">
+            <div class="settings-header"><div><div class="section-label">PERSONALIZE</div><h2 id="settingsTitle">Preferences</h2></div><button id="closeSettings" class="modal-close" type="button" aria-label="Close preferences">×</button></div>
+            <div class="setting-row"><div><strong>Appearance</strong><p>Choose how PhishingLens looks on this device.</p></div><select id="themeSelect" aria-label="Appearance theme"><option value="dark">Dark</option><option value="light">Light</option><option value="system">System</option></select></div>
+            <div class="setting-row"><div><strong>Compact layout</strong><p>Reduce spacing in cards and lists.</p></div><label class="switch-control"><input id="compactToggle" type="checkbox"><span></span></label></div>
+            <div class="setting-row"><div><strong>Motion effects</strong><p>Enable smooth scrolling and transitions.</p></div><label class="switch-control"><input id="motionToggle" type="checkbox" checked><span></span></label></div>
+            <p class="settings-note">Preferences and scan history are stored in this browser only.</p>
+        </section>
+    </div>
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="brand">
+
+                <span class="brand-icon">
+
+                    🛡️
+
+                </span>
+
+                Phishing<span>Lens</span>
+
+            </div>
+
+            <div class="footer-text">
+
+                AI-powered URL security analysis
+
+            </div>
+
+            <div class="footer-links">
+
+                <a href="#home">
+
+                    Home
+
+                </a>
+
+                <a href="#analyze">
+
+                    Analyze
+
+                </a>
+</div>
+
+        </div>
+
+    </footer>
+
+    <script>
+        const phishingLensScript = document.createElement("script");
+        phishingLensScript.src = window.location.protocol === "file:" ? "js/app.js" : "/app/js/app.js";
+        document.body.appendChild(phishingLensScript);
+    </script>
+
+</body>
+
+</html>

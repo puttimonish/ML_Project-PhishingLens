@@ -1,0 +1,11 @@
+{
+    "method": "sigmoid",
+    "calibration_folds": 3,
+    "training_rows": 237806,
+    "calibration_rows": 50958,
+    "test_rows": 50959,
+    "average_phishing_probability": 0.5007615755793107,
+    "minimum_phishing_probability": 0.01055180280085203,
+    "maximum_phishing_probability": 0.9891483913761259,
+    "average_legitimate_probability": 0.4992384244206893
+}
