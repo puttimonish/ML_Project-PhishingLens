@@ -1,0 +1,23 @@
+{
+    "model": "RandomForestClassifier",
+    "dataset_rows": 339723,
+    "feature_count": 35,
+    "train_samples": 271778,
+    "validation_samples": 33972,
+    "test_samples": 33973,
+    "test_accuracy": 0.9448091131192418,
+    "test_precision": 0.9415652784277024,
+    "test_recall": 0.9483886172155777,
+    "test_f1": 0.9449646306026006,
+    "test_roc_auc": 0.9884984872167214,
+    "confusion_matrix": [
+        [
+            16001,
+            999
+        ],
+        [
+            876,
+            16097
+        ]
+    ]
+}

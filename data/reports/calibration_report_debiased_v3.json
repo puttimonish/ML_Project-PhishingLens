@@ -1,0 +1,38 @@
+{
+    "method": "sigmoid",
+    "calibration_strategy": "FrozenEstimator",
+    "base_model": "models\\phishinglens_model_debiased_v2.joblib",
+    "output_model": "models\\phishinglens_calibrated_debiased_v3.joblib",
+    "excluded_features": [
+        "has_http",
+        "has_https"
+    ],
+    "dataset_rows": 339723,
+    "feature_count": 78,
+    "training_rows": 237806,
+    "calibration_rows": 50958,
+    "test_rows": 50959,
+    "metrics": {
+        "accuracy": 0.9430130104593889,
+        "precision": 0.9491775202134862,
+        "recall": 0.9360540476845124,
+        "f1": 0.9425701063956018,
+        "roc_auc": 0.9876755051759499,
+        "average_precision": 0.9888088749542953,
+        "brier_score": 0.04315041146644289,
+        "log_loss": 0.1507117851176023,
+        "confusion_matrix": [
+            [
+                24224,
+                1276
+            ],
+            [
+                1628,
+                23831
+            ]
+        ]
+    },
+    "average_phishing_probability": 0.5002744199951523,
+    "average_legitimate_probability": 0.4997255800048477,
+    "elapsed_seconds": 9.69
+}
