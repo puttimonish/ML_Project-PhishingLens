@@ -3,7 +3,7 @@
    URL analysis + local scan history + interface preferences
 ========================================================= */
 
-const API_BASE_URL = "https://carefully-jane-thick-papers.trycloudflare.com";
+const API_BASE_URL = "https://arg-funky-mrna-voltage.trycloudflare.com";
 
 const urlInput = document.getElementById("urlInput");
 const analyzeButton = document.getElementById("analyzeButton");
@@ -840,4 +840,5 @@ if (document.getElementById("printReportButton")) document.getElementById("print
         if (document.body.classList.contains("workspace-mode")) showWorkspacePage("scanner");
     });
 })();
+
 
