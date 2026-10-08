@@ -1,9 +1,7 @@
-﻿/* =========================================================
+/* =========================================================
    PhishingLens frontend interactions
    URL analysis + local scan history + interface preferences
 ========================================================= */
-
-const API_BASE_URL = "https://arg-funky-mrna-voltage.trycloudflare.com";
 
 const urlInput = document.getElementById("urlInput");
 const analyzeButton = document.getElementById("analyzeButton");
@@ -59,7 +57,7 @@ function formatValue(value) {
     if (typeof value === "number") {
         return Number.isInteger(value) ? value : Number(value).toFixed(4);
     }
-    if (value === null || value === undefined) return "â€”";
+    if (value === null || value === undefined) return "—";
     if (typeof value === "boolean") return value ? "Yes" : "No";
     return String(value);
 }
@@ -100,7 +98,7 @@ function renderExplanations(items) {
     items.forEach((text) => {
         const item = document.createElement("div");
         item.className = "explanation-item";
-        item.textContent = `â€¢ ${text}`;
+        item.textContent = `• ${text}`;
         explanations.appendChild(item);
     });
 }
@@ -202,7 +200,7 @@ async function analyzeURL() {
 
     setLoading(true);
     try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {
+        const response = await fetch("/api/v1/analyze", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url })
@@ -343,7 +341,7 @@ function applyTheme(theme) {
     document.body.dataset.theme = resolved;
     const icon = document.getElementById("themeIcon");
     const toggle = document.getElementById("themeToggle");
-    if (icon) icon.textContent = resolved === "dark" ? "â˜€" : "â˜¾";
+    if (icon) icon.textContent = resolved === "dark" ? "☀" : "☾";
     if (toggle) {
         toggle.setAttribute("aria-label", resolved === "dark" ? "Switch to light theme" : "Switch to dark theme");
         toggle.title = resolved === "dark" ? "Switch to light theme" : "Switch to dark theme";
@@ -528,7 +526,7 @@ function extractUrls(text) {
     return uniqueUrls(matches.map(x => x.replace(/[),.;!?\]}]+$/g, "")));
 }
 async function requestAnalysis(url) {
-    const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
+    const response = await fetch("/api/v1/analyze", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
     let data = {}; try { data = await response.json(); } catch {}
     if (!response.ok) throw new Error(data.detail || `Analysis failed (${response.status})`);
     return data;
@@ -551,7 +549,7 @@ function renderBulkResults(rows) {
         const item = document.createElement("div"); item.className = "tool-result-row";
         const left = document.createElement("span"); left.className = "small-url"; left.textContent = row.url;
         const right = document.createElement("strong"); right.className = "mini-risk";
-        right.textContent = row.error ? "ERROR" : `${String(row.risk_level || "Unknown").toUpperCase()} Â· ${Number(row.phishing_probability || 0).toFixed(1)}% phishing`;
+        right.textContent = row.error ? "ERROR" : `${String(row.risk_level || "Unknown").toUpperCase()} · ${Number(row.phishing_probability || 0).toFixed(1)}% phishing`;
         item.append(left,right); bulkResults.appendChild(item);
     });
 }
@@ -561,7 +559,7 @@ if (bulkScanButton) bulkScanButton.addEventListener("click", async () => {
     if (urls.length > 50) { bulkStatus.textContent = "Maximum 50 unique URLs per batch. Please split your list."; return; }
     bulkScanButton.disabled = true; downloadBulkCsv.disabled = true; lastBulkResults = []; bulkResults.replaceChildren();
     for (let i=0; i<urls.length; i++) {
-        bulkStatus.textContent = `Analyzing ${i+1} of ${urls.length}â€¦`;
+        bulkStatus.textContent = `Analyzing ${i+1} of ${urls.length}…`;
         try { const result = await requestAnalysis(urls[i]); lastBulkResults.push(result); saveScanToHistory(result); }
         catch (e) { lastBulkResults.push({url:urls[i],error:e.message}); }
         renderBulkResults(lastBulkResults);
@@ -577,11 +575,11 @@ if (compareButton) compareButton.addEventListener("click", async () => {
     const a = normalizeWebUrl(document.getElementById("compareUrlA").value), b = normalizeWebUrl(document.getElementById("compareUrlB").value);
     compareResults.replaceChildren();
     if (!a || !b) { addToolRow(compareResults,"Input","Enter two valid HTTP/HTTPS URLs."); return; }
-    compareButton.disabled = true; addToolRow(compareResults,"Status","Analyzing both URLsâ€¦");
+    compareButton.disabled = true; addToolRow(compareResults,"Status","Analyzing both URLs…");
     try {
         const [ra,rb] = await Promise.all([requestAnalysis(a),requestAnalysis(b)]); compareResults.replaceChildren();
         [ ["First URL",ra], ["Second URL",rb] ].forEach(([label,r]) => {
-            addToolRow(compareResults,label,r.url); addToolRow(compareResults,`${label} risk`,`${String(r.risk_level||"Unknown").toUpperCase()} Â· ${r.risk_score}/100`);
+            addToolRow(compareResults,label,r.url); addToolRow(compareResults,`${label} risk`,`${String(r.risk_level||"Unknown").toUpperCase()} · ${r.risk_score}/100`);
             addToolRow(compareResults,`${label} phishing probability`,`${Number(r.phishing_probability||0).toFixed(2)}%`);
             addToolRow(compareResults,`${label} legitimate probability`,`${Number(r.legitimate_probability||0).toFixed(2)}%`);
         });
@@ -606,7 +604,7 @@ const qrImageInput=document.getElementById("qrImageInput"), readQrButton=documen
 async function decodeQrWithBackend(file) {
     const formData = new FormData();
     formData.append("image", file, file.name || "qr-image");
-    const response = await fetch(`${API_BASE_URL}/api/v1/qr-decode`, {
+    const response = await fetch("/api/v1/qr-decode", {
         method: "POST",
         body: formData
     });
@@ -624,7 +622,7 @@ if (readQrButton) readQrButton.addEventListener("click",async()=>{
 
     readQrButton.disabled = true;
     use.disabled = true;
-    status.textContent = "Reading QR imageâ€¦";
+    status.textContent = "Reading QR image…";
 
     try {
         let value = "";
@@ -661,14 +659,14 @@ if (readQrButton) readQrButton.addEventListener("click",async()=>{
 });
 if(document.getElementById("useQrUrlButton")) document.getElementById("useQrUrlButton").addEventListener("click",()=>{const value=normalizeWebUrl(document.getElementById("qrExtractedUrl").value);if(!value)return;urlInput.value=value;document.getElementById("analyze").scrollIntoView({behavior:"smooth"});urlInput.focus();});
 async function inspectDomain(url) {
-    const response=await fetch(`${API_BASE_URL}/api/v1/intelligence`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
+    const response=await fetch("/api/v1/intelligence",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
     let data={};try{data=await response.json();}catch{}
     if(!response.ok)throw new Error(data.detail||`Live intelligence endpoint unavailable (${response.status}).`);return data;
 }
 if(document.getElementById("domainIntelButton")) document.getElementById("domainIntelButton").addEventListener("click",async()=>{
     const url=normalizeWebUrl(document.getElementById("intelligenceUrl").value)||normalizeWebUrl(urlInput.value), status=document.getElementById("domainIntelStatus"), grid=document.getElementById("domainIntelResults"), btn=document.getElementById("domainIntelButton");
-    grid.replaceChildren(); if(!url){status.textContent="Enter a valid URL or scan one above first.";return;} btn.disabled=true;status.textContent="Checking registration, DNS and TLSâ€¦";
-    try { const data=await inspectDomain(url); const values=data.checks||data; Object.entries(values).forEach(([key,val])=>{if(typeof val==="object"&&val!==null){const item=document.createElement("div");item.className="intel-result-item";const title=document.createElement("span");title.textContent=key.replace(/_/g," ");const body=document.createElement("strong");body.textContent=JSON.stringify(val);item.append(title,body);grid.appendChild(item);}else{const item=document.createElement("div");item.className="intel-result-item";const title=document.createElement("span");title.textContent=key.replace(/_/g," ");const body=document.createElement("strong");body.textContent=String(val);item.append(title,body);grid.appendChild(item);}});status.textContent=`Live check completed Â· ${data.checked_at||new Date().toLocaleString()}`; }
+    grid.replaceChildren(); if(!url){status.textContent="Enter a valid URL or scan one above first.";return;} btn.disabled=true;status.textContent="Checking registration, DNS and TLS…";
+    try { const data=await inspectDomain(url); const values=data.checks||data; Object.entries(values).forEach(([key,val])=>{if(typeof val==="object"&&val!==null){const item=document.createElement("div");item.className="intel-result-item";const title=document.createElement("span");title.textContent=key.replace(/_/g," ");const body=document.createElement("strong");body.textContent=JSON.stringify(val);item.append(title,body);grid.appendChild(item);}else{const item=document.createElement("div");item.className="intel-result-item";const title=document.createElement("span");title.textContent=key.replace(/_/g," ");const body=document.createElement("strong");body.textContent=String(val);item.append(title,body);grid.appendChild(item);}});status.textContent=`Live check completed · ${data.checked_at||new Date().toLocaleString()}`; }
     catch(e){status.textContent=e.message.includes("Failed to fetch")?"Live domain intelligence is not connected yet. Follow BACKEND_INTEGRATION.md in the ZIP, restart FastAPI, and try again.":e.message;}
     finally{btn.disabled=false;}
 });
@@ -692,13 +690,13 @@ if (breachCheckButton) breachCheckButton.addEventListener("click", async () => {
     results.replaceChildren();
     if (!email) { status.textContent = "Enter an email address first."; return; }
     if (!consent) { status.textContent = "Please tick the consent checkbox before sending the email for a lookup."; return; }
-    breachCheckButton.disabled = true; status.textContent = "Checking known breach recordsâ€¦";
+    breachCheckButton.disabled = true; status.textContent = "Checking known breach records…";
     try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/breach-check`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
+        const response = await fetch("/api/v1/breach-check", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
         let data={}; try { data=await response.json(); } catch {}
         if (!response.ok) throw new Error(data.detail || `Breach lookup unavailable (${response.status}).`);
         addToolRow(results,"Result",data.status === "found" ? `${data.breach_count} known breach record(s)` : "No matching records returned");
-        (data.breaches || []).forEach(b => addToolRow(results,b.name || "Breach",`${b.breach_date || "Date unknown"} Â· ${(b.data_classes || []).join(", ") || "Data types unknown"}`));
+        (data.breaches || []).forEach(b => addToolRow(results,b.name || "Breach",`${b.breach_date || "Date unknown"} · ${(b.data_classes || []).join(", ") || "Data types unknown"}`));
         status.textContent = data.notice || "Known breach lookup completed. This is not a guarantee of account safety.";
     } catch(e) { status.textContent = e.message.includes("Failed to fetch") ? "Breach-check backend is not connected. See BACKEND_INTEGRATION.md; this also requires a provider API key." : e.message; }
     finally { breachCheckButton.disabled=false; }
@@ -739,17 +737,17 @@ if (document.getElementById("printReportButton")) document.getElementById("print
     };
 
     const navItems = [
-        {group:"ANALYZE", key:"scanner", label:"URL Scanner", icon:"âŒ•"},
-        {group:"ANALYZE", key:"bulk", label:"Bulk URL Scanner", icon:"â–¦"},
-        {group:"ANALYZE", key:"compare", label:"Compare URLs", icon:"â‡„"},
-        {group:"TOOLS", key:"email", label:"Email & File Links", icon:"âœ‰"},
-        {group:"TOOLS", key:"qr", label:"QR Extractor", icon:"â–£"},
-        {group:"TOOLS", key:"domain", label:"Domain Intelligence", icon:"â—Ž"},
-        {group:"TOOLS", key:"breach", label:"Breach Lookup", icon:"â™™"},
-        {group:"WORKSPACE", key:"history", label:"Scan History", icon:"â—·"},
-        {group:"WORKSPACE", key:"watchlist", label:"Domain Watchlist", icon:"â˜†"},
-        {group:"WORKSPACE", key:"report", label:"Reports & Exports", icon:"â‡©"},
-        {group:"LEARN", key:"intelligence", label:"Threat Intelligence", icon:"â—ˆ"}
+        {group:"ANALYZE", key:"scanner", label:"URL Scanner", icon:"⌕"},
+        {group:"ANALYZE", key:"bulk", label:"Bulk URL Scanner", icon:"▦"},
+        {group:"ANALYZE", key:"compare", label:"Compare URLs", icon:"⇄"},
+        {group:"TOOLS", key:"email", label:"Email & File Links", icon:"✉"},
+        {group:"TOOLS", key:"qr", label:"QR Extractor", icon:"▣"},
+        {group:"TOOLS", key:"domain", label:"Domain Intelligence", icon:"◎"},
+        {group:"TOOLS", key:"breach", label:"Breach Lookup", icon:"♙"},
+        {group:"WORKSPACE", key:"history", label:"Scan History", icon:"◷"},
+        {group:"WORKSPACE", key:"watchlist", label:"Domain Watchlist", icon:"☆"},
+        {group:"WORKSPACE", key:"report", label:"Reports & Exports", icon:"⇩"},
+        {group:"LEARN", key:"intelligence", label:"Threat Intelligence", icon:"◈"}
     ];
 
     const sidebar = document.createElement("aside");
@@ -840,6 +838,3 @@ if (document.getElementById("printReportButton")) document.getElementById("print
         if (document.body.classList.contains("workspace-mode")) showWorkspacePage("scanner");
     });
 })();
-
-
-
