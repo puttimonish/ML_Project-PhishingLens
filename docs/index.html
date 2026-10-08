@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 
@@ -755,7 +755,7 @@
                     <div class="tool-card-heading"><span class="tool-icon">▣</span><div><h3>QR URL extractor</h3><p>Read a QR code image and inspect its URL.</p></div></div>
                     <input id="qrImageInput" type="file" accept="image/*">
                     <button id="readQrButton" class="primary-button" type="button">Read QR image</button>
-                    <p id="qrStatus" class="tool-status" role="status">Uses browser QR decoding with a server-side fallback when needed.</p>
+                    <p id="qrStatus" class="tool-status" role="status">QR decoding requires a browser with BarcodeDetector support.</p>
                     <div class="tool-actions"><input id="qrExtractedUrl" type="url" placeholder="Extracted URL appears here" aria-label="Extracted QR URL"><button id="useQrUrlButton" class="secondary-button" type="button" disabled>Use in scanner</button></div>
                 </article>
                 <article class="tool-card tool-card-wide">
@@ -1069,11 +1069,10 @@
 
     <script>
         const phishingLensScript = document.createElement("script");
-        phishingLensScript.src = window.location.protocol === "file:" ? "js/app.js" : "/app/js/app.js";
+        phishingLensScript.src = "js/app.js";
         document.body.appendChild(phishingLensScript);
     </script>
 
 </body>
 
 </html>
-

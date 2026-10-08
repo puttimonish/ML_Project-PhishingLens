@@ -3,6 +3,8 @@
    URL analysis + local scan history + interface preferences
 ========================================================= */
 
+const API_BASE_URL = "https://peripherals-mayor-brooklyn-neither.trycloudflare.com";
+
 const urlInput = document.getElementById("urlInput");
 const analyzeButton = document.getElementById("analyzeButton");
 const buttonText = document.getElementById("buttonText");
@@ -200,7 +202,7 @@ async function analyzeURL() {
 
     setLoading(true);
     try {
-        const response = await fetch("/api/v1/analyze", {
+        const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ url })
@@ -526,7 +528,7 @@ function extractUrls(text) {
     return uniqueUrls(matches.map(x => x.replace(/[),.;!?\]}]+$/g, "")));
 }
 async function requestAnalysis(url) {
-    const response = await fetch("/api/v1/analyze", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
+    const response = await fetch(`${API_BASE_URL}/api/v1/analyze`, {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({url})});
     let data = {}; try { data = await response.json(); } catch {}
     if (!response.ok) throw new Error(data.detail || `Analysis failed (${response.status})`);
     return data;
@@ -604,7 +606,7 @@ const qrImageInput=document.getElementById("qrImageInput"), readQrButton=documen
 async function decodeQrWithBackend(file) {
     const formData = new FormData();
     formData.append("image", file, file.name || "qr-image");
-    const response = await fetch("/api/v1/qr-decode", {
+    const response = await fetch(`${API_BASE_URL}/api/v1/qr-decode`, {
         method: "POST",
         body: formData
     });
@@ -659,7 +661,7 @@ if (readQrButton) readQrButton.addEventListener("click",async()=>{
 });
 if(document.getElementById("useQrUrlButton")) document.getElementById("useQrUrlButton").addEventListener("click",()=>{const value=normalizeWebUrl(document.getElementById("qrExtractedUrl").value);if(!value)return;urlInput.value=value;document.getElementById("analyze").scrollIntoView({behavior:"smooth"});urlInput.focus();});
 async function inspectDomain(url) {
-    const response=await fetch("/api/v1/intelligence",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
+    const response=await fetch(`${API_BASE_URL}/api/v1/intelligence`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({url})});
     let data={};try{data=await response.json();}catch{}
     if(!response.ok)throw new Error(data.detail||`Live intelligence endpoint unavailable (${response.status}).`);return data;
 }
@@ -692,7 +694,7 @@ if (breachCheckButton) breachCheckButton.addEventListener("click", async () => {
     if (!consent) { status.textContent = "Please tick the consent checkbox before sending the email for a lookup."; return; }
     breachCheckButton.disabled = true; status.textContent = "Checking known breach records…";
     try {
-        const response = await fetch("/api/v1/breach-check", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
+        const response = await fetch(`${API_BASE_URL}/api/v1/breach-check`, {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email,consent:true})});
         let data={}; try { data=await response.json(); } catch {}
         if (!response.ok) throw new Error(data.detail || `Breach lookup unavailable (${response.status}).`);
         addToolRow(results,"Result",data.status === "found" ? `${data.breach_count} known breach record(s)` : "No matching records returned");
@@ -702,27 +704,7 @@ if (breachCheckButton) breachCheckButton.addEventListener("click", async () => {
     finally { breachCheckButton.disabled=false; }
 });
 
-if (document.getElementById("printReportButton")) document.getElementById("printReportButton").addEventListener("click", () => {
-    if (!currentAnalysis) return;
-
-    const wasWorkspaceMode = document.body.classList.contains("workspace-mode");
-    const wasResultHidden = resultSection.classList.contains("hidden");
-
-    // The print stylesheet prints #resultSection only. When the Reports
-    // workspace is open, that section is hidden, which previously produced
-    // an almost-blank PDF. Temporarily reveal the real scan result.
-    document.body.classList.remove("workspace-mode");
-    resultSection.classList.remove("hidden");
-
-    const restoreAfterPrint = () => {
-        if (wasWorkspaceMode) document.body.classList.add("workspace-mode");
-        if (wasResultHidden) resultSection.classList.add("hidden");
-        window.removeEventListener("afterprint", restoreAfterPrint);
-    };
-
-    window.addEventListener("afterprint", restoreAfterPrint);
-    window.print();
-});
+if (document.getElementById("printReportButton")) document.getElementById("printReportButton").addEventListener("click", () => { if (currentAnalysis) window.print(); });
 
 
 /* =========================================================

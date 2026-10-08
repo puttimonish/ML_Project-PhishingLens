@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -12,6 +13,19 @@ app = FastAPI(
     title="PhishingLens API",
     description="AI-powered URL phishing detection and contextual security analysis.",
     version="1.0.0"
+)
+
+# Allow the GitHub Pages frontend to communicate with this API.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://puttimonish.github.io",
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(router)
